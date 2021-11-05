@@ -1,0 +1,11 @@
+{
+    "BASE_PATH": "/",
+    "SERVER": {
+        "HOST": "localhost",
+        "PORT": 3000
+    },
+    "DB": {
+        "HOST": "localhost",
+        "PORT": 3306
+    }
+}
