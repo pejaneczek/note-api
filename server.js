@@ -9,22 +9,10 @@ const app = require('./app');
 require('http-shutdown').extend();
 const http = require('http');
 
-
 /**
  * Create HTTP server.
  */
 const server = http.createServer().withShutdown();
-
-server.on('request', app);
-server.on('error', onError);
-server.on('listening', onListening);
-
-/**
- * Setup exit handlers
- */
-process.on('SIGTERM', () => exitHandler());
-process.on('SIGINT', () => exitHandler());
-process.on('exit', () => exitHandler());
 
 /**
  * Event listener for HTTP server "error" event.
@@ -66,5 +54,16 @@ function exitHandler() {
     console.log('Shutting down HTTP server...');
     server.shutdown(() => process.exit(7));
 }
+
+server.on('request', app);
+server.on('error', onError);
+server.on('listening', onListening);
+
+/**
+ * Setup exit handlers
+ */
+process.on('SIGTERM', () => exitHandler());
+process.on('SIGINT', () => exitHandler());
+process.on('exit', () => exitHandler());
 
 module.exports = server;

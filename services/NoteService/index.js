@@ -1,7 +1,6 @@
 'use strict';
 
 const di = require('bottlejs').pop('app').container;
-const errors = require('../../errors');
 
 class NoteService {
     /**
@@ -98,15 +97,18 @@ class NoteService {
      *
      */
     async delete(id) {
-        let success;
+        let results;
 
         try {
-            success = await this.__noteRepository.delete(id);
+            results = await this.__noteRepository.delete(id);
+            if (results.error) {
+                throw results;
+            }
         } catch (error) {
-            throw new Error(error);
+            throw error;
         }
 
-        return success;
+        return results;
     }
 }
 

@@ -3,7 +3,7 @@
 const app = require('../server');
 
 const chai = require('chai');
-const should = chai.should();
+const should = chai.should(); // jshint ignore:line
 const chaiHttp = require('chai-http');
 chai.use(chaiHttp);
 
