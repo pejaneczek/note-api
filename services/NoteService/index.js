@@ -1,14 +1,15 @@
 'use strict';
 
+const di = require('bottlejs').pop('app').container;
 const errors = require('../../errors');
 
 class NoteService {
     /**
      * Constructor
-     * @param {NoteModel} noteModel
+     * @param {NoteRepository} noteRepository
      */
-    constructor(noteModel) {
-        this.__noteModel = noteModel;
+    constructor(noteRepository) {
+        this.__noteRepository = noteRepository;
     }
 
     /**
@@ -22,25 +23,10 @@ class NoteService {
         let notes;
 
         try {
-            notes = {
-                "count": 2,
-                "results": [
-                    {
-                        "id": 0,
-                        "title": "Hello",
-                        "message": "World"
-                    },
-                    {
-                        "id": 1,
-                        "title": "Another",
-                        "message": "Note"
-                    }
-                ]
-            }
+            notes = await this.__noteRepository.list();
         } catch (error) {
             throw new Error(error);
         }
-
         return notes;
     }
 
@@ -54,13 +40,8 @@ class NoteService {
     async getNoteById(id) {
         let note;
 
-        const mockData = {
-            1: { id: 1, title: 'title1', message: 'message1' },
-            2: { id: 2, title: 'title2', message: 'message2' },
-        }
-
         try {
-            note = mockData[id];
+            note = await this.__noteRepository.getById(id);
         } catch (error) {
             throw new Error(error);
         }
@@ -77,10 +58,9 @@ class NoteService {
      */
     async create(note) {
         let newNote;
-        let { title, message } = note;
 
         try {
-            newNote = { id: 1, title, message };
+            newNote = await this.__noteRepository.create(note);
         } catch (error) {
             throw new Error(error);
         }
@@ -96,16 +76,18 @@ class NoteService {
      *
      */
     async update(id, note) {
-        let updatedNote;
-        let { title, message } = note;
+        let results;
 
         try {
-            updatedNote = { id, title, message };
+            results = await this.__noteRepository.update(id, note);
+            if (results.error) {
+                throw results;
+            }
         } catch (error) {
-            throw new Error(error);
+            throw error;
         }
 
-        return updatedNote;
+        return results;
     }
 
     /**
@@ -119,7 +101,7 @@ class NoteService {
         let success;
 
         try {
-            success = { success: true };
+            success = await this.__noteRepository.delete(id);
         } catch (error) {
             throw new Error(error);
         }
@@ -128,4 +110,4 @@ class NoteService {
     }
 }
 
-module.exports = NoteService;
+module.exports = new NoteService(di.NoteRepository);

@@ -3,11 +3,11 @@ class ErrorHelper {
 
     process(error, instance, response) {
         const errorData = {
-            code: error.status  || 500,
-            message: error.message
+            code: error.status || 500,
+            message: error.message || 'Something went wrong'
         };
 
-        return response.status(error.status).json(errorData);
+        return response.status(errorData.code).json(errorData);
     }
 }
 

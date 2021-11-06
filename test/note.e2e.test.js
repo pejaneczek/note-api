@@ -35,12 +35,47 @@ describe('Notes', () => {
                 });
         });
 
-        it('should properly create note', async () => {
+        it('should throw error with unsapported format', (done) => {
+            // TODO
+            done();
+        });
 
+        it('should return created note in jsonp format', (done) => {
+            // TODO
+            done();
+        });
+
+        it('should properly create note', (done) => {
+            const givenData = { title: 'test title', message: 'test message' };
+            chai.request(app)
+                .post('/api/v1/notes')
+                .send({ title: 'test title', message: 'test message' })
+                .end((err, res) => {
+                    res.should.have.status(200);
+                    res.body.title.should.be.eql(givenData.title);
+                    res.body.message.should.be.eql(givenData.message);
+
+                    done();
+                });
         });
     });
 
     describe('List', () => {
+        it('should throw error with unsapported format', (done) => {
+            // TODO
+            done();
+        });
+
+        it('should return created note in jsonp format', (done) => {
+            // TODO
+            done();
+        });
+
+        it('should return notes with specific page', (done) => {
+            // TODO
+            done();
+        });
+
         it('should return all notes', (done) => {
             const expectedData = {
                 count: 2,
@@ -64,8 +99,27 @@ describe('Notes', () => {
     });
 
     describe('Update', () => {
-        it('should throw error if note with passed id not exist', async () => {
+        it('should throw error with unsapported format', (done) => {
+            // TODO
+            done();
+        });
 
+        it('should return created note in jsonp format', (done) => {
+            // TODO
+            done();
+        });
+
+        it('should throw error if note with passed id not exist', (done) => {
+            chai.request(app)
+                .put('/api/v1/notes/1234')
+                .send({ title: 'test title', message: 'test message' })
+                .end((err, res) => {
+                    res.should.have.status(404);
+                    res.body.code.should.be.eql(404);
+                    res.body.message.should.be.eql('Element does not exist');
+
+                    done();
+                });
         });
 
         it('should throw error if note title is not passed', (done) => {
@@ -94,18 +148,40 @@ describe('Notes', () => {
                 });
         });
 
-        it('should properly update note by id', async () => {
+        it('should properly update note by id', (done) => {
+            const givenData = { title: 'updated title', message: 'updated message' };
+            chai.request(app)
+                .put('/api/v1/notes/16')
+                .send({ title: 'updated title', message: 'updated message' })
+                .end((err, res) => {
+                    res.should.have.status(200);
+                    res.body.title.should.be.eql(givenData.title);
+                    res.body.message.should.be.eql(givenData.message);
 
+                    done();
+                });
         });
     });
 
     describe('Delete', () => {
-        it('should throw error if note with passed id not exist', async () => {
-
+        it('should throw error with unsapported format', (done) => {
+            // TODO
+            done();
         });
 
-        it('should properly delete note by id', async () => {
+        it('should return created note in jsonp format', (done) => {
+            // TODO
+            done();
+        });
 
+        it('should throw error if note with passed id not exist', (done) => {
+            // TODO
+            done();
+        });
+
+        it('should properly delete note by id', (done) => {
+            // TODO
+            done();
         });
     });
 });

@@ -1,5 +1,6 @@
 const di = require('bottlejs').pop('app').container;
 const ErrorHelper = require('../helpers/error-helper');
+const ResponseFormatHelper = require('../helpers/response-format-helper');
 const noteServiceErrors = require('../services/NoteService/errors');
 
 class NoteController {
@@ -28,7 +29,7 @@ class NoteController {
                 .process(error, noteServiceErrors.NoteServiceError, res);
         }
 
-        return res.json(response);
+        return new ResponseFormatHelper().format(req, res, response);
     }
 
     /**
@@ -51,7 +52,7 @@ class NoteController {
                 .process(error, noteServiceErrors.NoteServiceError, res);
         }
 
-        return res.json(response);
+        return new ResponseFormatHelper().format(req, res, response);
     }
 
     /**
@@ -74,7 +75,7 @@ class NoteController {
                 .process(error, noteServiceErrors.NoteServiceError, res);
         }
 
-        return res.json(response);
+        return new ResponseFormatHelper().format(req, res, response);
     }
 
     /**
@@ -98,7 +99,7 @@ class NoteController {
                 .process(error, noteServiceErrors.NoteServiceError, res);
         }
 
-        return res.json(response);
+        return new ResponseFormatHelper().format(req, res, response);
     }
 
     /**
@@ -121,7 +122,7 @@ class NoteController {
                 .process(error, noteServiceErrors.NoteServiceError, res);
         }
 
-        return res.json(response);
+        return new ResponseFormatHelper().format(req, res, response);
     }
 }
 

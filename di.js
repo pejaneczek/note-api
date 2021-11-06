@@ -8,11 +8,11 @@ bottle.service('PingService', function () {
 });
 
 bottle.service('NoteService', function () {
-    return new (require('./services/NoteService'))(models.Note)
+    return (require('./services/NoteService'))
 });
 
 bottle.service('NoteRepository', function () {
-    return new (require('./repositories/NoteRepository'))
+    return new (require('./repositories/NoteRepository'))(models.Note)
 })
 
 

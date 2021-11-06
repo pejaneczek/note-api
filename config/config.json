@@ -5,7 +5,13 @@
         "PORT": 3000
     },
     "DB": {
+        "NAME": "notes-db",
         "HOST": "localhost",
         "PORT": 3306
+    },
+    "TEST": {
+        "DB": {
+            "NAME": "test-notes-db"
+        }
     }
 }

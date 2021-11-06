@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "lint": "jshint --exclude=\"node_modules/\" .",
-    "test": "mocha --timeout 10000"
+    "test": "NODE_ENV=TESTING mocha --timeout 10000"
   },
   "author": "",
   "license": "ISC",
@@ -17,6 +17,8 @@
     "express": "^4.17.1",
     "http-shutdown": "^1.2.2",
     "path": "^0.12.7",
+    "sqlite3": "^5.0.2",
+    "sqlite3-promisify": "^1.0.3",
     "url-join": "^4.0.1",
     "uuid": "^8.3.2"
   },
