@@ -1,9 +1,10 @@
 {
-  "name": "test_task",
+  "name": "note-api",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
   "scripts": {
+    "start": "node index.js",
     "lint": "jshint --exclude=\"node_modules/\" .",
     "test": "NODE_ENV=TESTING mocha --timeout 10000"
   },
