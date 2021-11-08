@@ -8,13 +8,13 @@ const chaiHttp = require('chai-http');
 chai.use(chaiHttp);
 
 describe('Notes', () => {
-    before(() => {
-        // TODO: clear DB
-    });
+    // before(() => {
+    //     // TODO: clear DB
+    // });
 
-    after(() => {
-        // TODO: clear DB
-    });
+    // after(() => {
+    //     // TODO: clear DB
+    // });
 
     describe('Create', () => {
         it('should throw error 400 if note title is not passed', (done) => {
@@ -112,8 +112,27 @@ describe('Notes', () => {
         });
 
         it('should return notes with specific page', (done) => {
-            // TODO
-            done();
+            const givenData = { title: 'test title', message: 'test message' };
+            chai.request(app)
+                .post('/api/v1/notes')
+                .send({ title: 'test title', message: 'test message' })
+                .end((err, res) => {
+                    res.should.have.status(200);
+                    res.body.title.should.be.eql(givenData.title);
+                    res.body.message.should.be.eql(givenData.message);
+                    chai.request(app)
+                        .get('/api/v1/notes?page=2&size=2')
+                        .end((err, res) => {
+                            res.should.have.status(200);
+                            res.body.count.should.be.eql(2);
+                            res.body.currentPage.should.be.eql(2);
+
+                            // res.body.totalPages.should.to.exists; // TODO
+
+                            done();
+                        });
+                });
+
         });
 
         it('should return all notes', (done) => {

@@ -21,9 +21,10 @@ class NoteController {
      */
     async list(req, res) {
         let response;
+        const { page, size } = req.query;
 
         try {
-            response = await this.__noteService.list();
+            response = await this.__noteService.list(page, size);
         } catch (error) {
             return new ErrorHelper()
                 .process(error, noteServiceErrors.NoteServiceError, res);

@@ -21,13 +21,28 @@ class NoteRepository {
         return createdNote;
     }
 
-    async list() {
+    async list(page, size = 10) {
         let notes;
+        let results;
+        let totalPages;
 
         try {
-            const results = await database.all('SELECT * FROM notes');
+            if (page) {
+                const offset = page * size;
+                const records = await database.get('SELECT COUNT(*) as count FROM notes');
+                totalPages = Math.ceil(records.count / size);
+                results = await database.all('SELECT * FROM notes LIMIT ? OFFSET ?', [size, offset]);
+            } else {
+                results = await database.all('SELECT * FROM notes');
+            }
+
             if (results) {
-                notes = {
+                notes = page ? {
+                    count: results.length,
+                    results,
+                    totalPages,
+                    currentPage: Number(page)
+                } : {
                     count: results.length,
                     results
                 }

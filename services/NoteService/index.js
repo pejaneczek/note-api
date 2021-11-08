@@ -18,11 +18,11 @@ class NoteService {
      * @apiVersion 1.0.0
      *
      */
-    async list() {
+    async list(page, size) {
         let notes;
 
         try {
-            notes = await this.__noteRepository.list();
+            notes = await this.__noteRepository.list(page, size);
         } catch (error) {
             throw new Error(error);
         }
